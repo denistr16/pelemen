@@ -1,179 +1,125 @@
-#ifndef CAR_CONTROLLERS_PIN
-#define CAR_CONTROLLERS_PIN
-  //Wheel FL  
-  #define FORWARD_LEFT_MOVE_FORWARD 5
-  #define FORWARD_LEFT_MOVE_BACKWARD 4
-
-  //Wheel FR
-  #define FORWARD_RIGHT_MOVE_FORWARD 9
-  #define FORWARD_RIGHT_MOVE_BACKWARD 8
-
-  //Wheel BL
-  #define BACKWARD_LEFT_MOVE_FORWARD 6  
-  #define BACKWARD_LEFT_MOVE_BACKWARD 7
-
-  //Wheel BR
-  #define BACKWARD_RIGHT_MOVE_FORWARD 10
-  #define BACKWARD_RIGHT_MOVE_BACKWARD 11
-
-#endif
-
 #define ONE_SECOND 1000
-#define TEN_DEG 80
 
+#define LEFT_REAR_FORWARD 3
+#define LEFT_REAR_BACKWARD 4
+#define LEFT_REAR_CONTROLLER 2
 
-void car_forward()
-{
-  digitalWrite(FORWARD_LEFT_MOVE_FORWARD, HIGH);  
-  digitalWrite(FORWARD_RIGHT_MOVE_FORWARD, HIGH); 
-  digitalWrite(BACKWARD_LEFT_MOVE_FORWARD, HIGH); 
-  digitalWrite(BACKWARD_RIGHT_MOVE_FORWARD, HIGH); 
-}
+#define LEFT_FRONT_FORWARD 6
+#define LEFT_FRONT_BACKWARD 5 
+#define LEFT_FRONT_CONTROLLER 7
 
+#define RIGHT_FRONT_FORWARD 11
+#define RIGHT_FRONT_BACKWARD 12 
+#define RIGHT_FRONT_CONTROLLER 13
 
-void car_backward()
-{
-  digitalWrite(FORWARD_LEFT_MOVE_BACKWARD, HIGH);  
-  digitalWrite(FORWARD_RIGHT_MOVE_BACKWARD, HIGH); 
-  digitalWrite(BACKWARD_LEFT_MOVE_BACKWARD, HIGH); 
-  digitalWrite(BACKWARD_RIGHT_MOVE_BACKWARD, HIGH); 
-}
-
-
-void car_stop_forward()
-{
-  //  disable forward wheels:
-  digitalWrite(FORWARD_LEFT_MOVE_FORWARD, LOW);  
-  digitalWrite(FORWARD_RIGHT_MOVE_FORWARD, LOW); 
-  digitalWrite(BACKWARD_LEFT_MOVE_FORWARD, LOW); 
-  digitalWrite(BACKWARD_RIGHT_MOVE_FORWARD, LOW);
-}
-
-
-
-void car_stop_backward()
-{
-  // disable backward wheels: 
-  digitalWrite(FORWARD_LEFT_MOVE_BACKWARD, LOW);  
-  digitalWrite(FORWARD_RIGHT_MOVE_BACKWARD, LOW); 
-  digitalWrite(BACKWARD_LEFT_MOVE_BACKWARD, LOW); 
-  digitalWrite(BACKWARD_RIGHT_MOVE_BACKWARD, LOW);
-}
-
-void car_turn_left()
-{
-  //turn left 
- digitalWrite(FORWARD_LEFT_MOVE_BACKWARD, HIGH);   
- digitalWrite(BACKWARD_LEFT_MOVE_BACKWARD, HIGH); 
- digitalWrite(FORWARD_RIGHT_MOVE_FORWARD, HIGH); 
- digitalWrite(BACKWARD_RIGHT_MOVE_FORWARD, HIGH);
-}
-
-void car_turn_right()
-{
-  digitalWrite(FORWARD_RIGHT_MOVE_BACKWARD, HIGH);
-  digitalWrite(BACKWARD_RIGHT_MOVE_BACKWARD, HIGH);
-  digitalWrite(FORWARD_LEFT_MOVE_FORWARD, HIGH);  
-  digitalWrite(BACKWARD_LEFT_MOVE_FORWARD, HIGH);
-}
-
-void car_full_stop()
-{
-  car_stop_forward();
-  car_stop_backward();
-}
-
-void car_turn_left_ten()
-{
-  car_turn_left();
-  delay(TEN_DEG);
-  car_full_stop();
-}
-
-void car_turn_right_ten()
-{
-  car_turn_right();
-  delay(TEN_DEG);
-  car_full_stop();
-}
-
-void car_turn_left_90()
-{
-  car_turn_left();
-  delay(TEN_DEG*9);
-  car_full_stop();
-}
-
-void car_turn_right_90()
-{
-  car_turn_right();
-  delay(TEN_DEG*9);
-  car_full_stop();
- }
-void car_forward_step()
-{
-  car_forward();
-  delay(ONE_SECOND + ONE_SECOND * 0.2);
-  car_full_stop(); 
-}
-
- void car_backward_step()
- {
-  car_backward();
-  delay(ONE_SECOND + ONE_SECOND * 0.2);
-  car_full_stop();
- }
+#define RIGHT_REAR_FORWARD 10
+#define RIGHT_REAR_BACKWARD 9
+#define RIGHT_REAR_CONTROLLER 8
 
 
 
 void setup() 
 { 
-  pinMode(FORWARD_LEFT_MOVE_FORWARD, OUTPUT);
-  pinMode(FORWARD_LEFT_MOVE_BACKWARD, OUTPUT);
-  pinMode(FORWARD_RIGHT_MOVE_FORWARD, OUTPUT);
-  pinMode(FORWARD_RIGHT_MOVE_BACKWARD, OUTPUT);
-  pinMode(BACKWARD_LEFT_MOVE_FORWARD, OUTPUT);
-  pinMode(BACKWARD_LEFT_MOVE_BACKWARD, OUTPUT);
-  pinMode(BACKWARD_RIGHT_MOVE_FORWARD, OUTPUT);  
-  pinMode(BACKWARD_RIGHT_MOVE_BACKWARD, OUTPUT);
+//  int baud_rate = 9600;  
+//  Serial.begin(baud_rate);
+//  
 
-  int baud_rate = 9600;  
-  Serial.begin(baud_rate);
+    pinMode(LEFT_REAR_FORWARD, OUTPUT);
+    pinMode(LEFT_REAR_BACKWARD, OUTPUT);
+    pinMode(LEFT_REAR_CONTROLLER, OUTPUT);
+    
+    pinMode(LEFT_FRONT_FORWARD, OUTPUT);
+    pinMode(LEFT_FRONT_BACKWARD, OUTPUT);
+    pinMode(LEFT_FRONT_CONTROLLER, OUTPUT);
+
+    pinMode(8, OUTPUT);
+    pinMode(13, OUTPUT);
+    pinMode(9, OUTPUT);
+    pinMode(10, OUTPUT);
+    pinMode(11, OUTPUT);
+    pinMode(12, OUTPUT);
+    
   
+    digitalWrite(LEFT_FRONT_CONTROLLER, HIGH);
+    digitalWrite(LEFT_REAR_CONTROLLER, HIGH);
+
+    digitalWrite(RIGHT_REAR_CONTROLLER, HIGH);
+    digitalWrite(RIGHT_FRONT_CONTROLLER, HIGH);
  }
 
 
 
 
+
+void forward()
+{
+  digitalWrite(LEFT_FRONT_FORWARD, HIGH);
+  digitalWrite(LEFT_REAR_FORWARD, HIGH);
+  digitalWrite(RIGHT_FRONT_FORWARD, HIGH);
+  digitalWrite(RIGHT_REAR_FORWARD, HIGH);
+  
+}
+
+void backward()
+{
+  digitalWrite(LEFT_FRONT_BACKWARD, HIGH);
+  digitalWrite(LEFT_REAR_BACKWARD,  HIGH);
+  digitalWrite(RIGHT_FRONT_BACKWARD,HIGH);
+  digitalWrite(RIGHT_REAR_BACKWARD, HIGH); 
+}
+
+void stop()
+{
+  digitalWrite(LEFT_FRONT_FORWARD, LOW);
+  digitalWrite(LEFT_REAR_FORWARD,  LOW);
+  digitalWrite(RIGHT_FRONT_FORWARD,LOW);
+  digitalWrite(RIGHT_REAR_FORWARD, LOW);
+
+  digitalWrite(LEFT_FRONT_BACKWARD, LOW);
+  digitalWrite(LEFT_REAR_BACKWARD,  LOW);
+  digitalWrite(RIGHT_FRONT_BACKWARD,LOW);
+  digitalWrite(RIGHT_REAR_BACKWARD, LOW); 
+}
+
 void loop() 
 {   
-  while (Serial.available())
-  { 
-      char in_byte = Serial.read();
-    
-      if(in_byte == 'F' )
-      {
-        car_forward_step();
-      }
-       
-      if (in_byte == 'B')
-      {
-        car_backward_step();
-      }
-         
-      if(in_byte == 'S')
-      {
-            car_full_stop();
-      }
-    
-      if(in_byte == 'L')
-      {
-        car_turn_left_90();
-      }
+forward();
+delay(ONE_SECOND*2);
+stop();
+delay(ONE_SECOND*0.5);
+backward();
+delay(ONE_SECOND);
+stop();
+delay(ONE_SECOND*0.5);
+
   
-      if(in_byte == 'R')
-      {
-        car_turn_right_90();
-      }
-  }
+//  while (Serial.available())
+//  { 
+//      char in_byte = Serial.read();
+//    
+//      if(in_byte == 'F' )
+//      {
+//        car_forward_step();
+//      }
+//       
+//      if (in_byte == 'B')
+//      {
+//        car_backward_step();
+//      }
+//         
+//      if(in_byte == 'S')
+//      {
+//            car_full_stop();
+//      }
+//    
+//      if(in_byte == 'L')
+//      {
+//        car_turn_left_90();
+//      }
+//  
+//      if(in_byte == 'R')
+//      {
+//        car_turn_right_90();
+//      }
+//  }
 }   
