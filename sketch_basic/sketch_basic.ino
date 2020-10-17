@@ -16,8 +16,10 @@
 #define RIGHT_REAR_BACKWARD 9
 #define RIGHT_REAR_CONTROLLER 8
 
-#define RXD 7
-#define TXD 8
+
+#define RX 0
+#define TX 1
+
 
 #include <SoftwareSerial.h> // TX RX software library for bluetooth
 
@@ -26,14 +28,15 @@ const unsigned short bluetoothRx = 7;
 const unsigned short bluetoothTx = 8;
 SoftwareSerial bluetooth(bluetoothRx, bluetoothTx);
 
-char command;
-
 void setup() 
 { 
 //    const unsigned short baud_rate = 115200;  
-//    Serial.begin(115200);  
+//    Serial.begin(9600);  
     bluetooth.begin(9600);
 
+    pinMode(bluetoothRx, INPUT);
+    pinMode(bluetoothTx, OUTPUT);      
+    
     pinMode(LEFT_REAR_FORWARD, OUTPUT);
     pinMode(LEFT_REAR_BACKWARD, OUTPUT);
     pinMode(LEFT_REAR_CONTROLLER, OUTPUT);
@@ -113,13 +116,17 @@ void right()
 }
 
 
+//char command;
+
 void loop() 
 {   
   if(bluetooth.available() > 0)  //Checking if there is some data available or not
+//  if(Serial.available() > 0)  //Checking if there is some data available or not
   { 
-    command = bluetooth.read();   //Storing the data in the 'command' variable
+    char command = bluetooth.read();   //Storing the data in the 'command' variable
+//    command = Serial.read();
 //    Serial.println(command);
-
+    
     switch(command)
     {
       case 'F': 
@@ -128,7 +135,7 @@ void loop()
         break;
       }
       default:
-       backward();  
+//       backward();  
         break;
     }
   }
