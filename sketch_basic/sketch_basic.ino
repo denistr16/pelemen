@@ -16,13 +16,23 @@
 #define RIGHT_REAR_BACKWARD 9
 #define RIGHT_REAR_CONTROLLER 8
 
+#define RXD 7
+#define TXD 8
 
+#include <SoftwareSerial.h> // TX RX software library for bluetooth
+
+
+const unsigned short bluetoothRx = 7;
+const unsigned short bluetoothTx = 8;
+SoftwareSerial bluetooth(bluetoothRx, bluetoothTx);
+
+char command;
 
 void setup() 
 { 
-//  int baud_rate = 9600;  
-//  Serial.begin(baud_rate);
-//  
+//    const unsigned short baud_rate = 115200;  
+//    Serial.begin(115200);  
+    bluetooth.begin(9600);
 
     pinMode(LEFT_REAR_FORWARD, OUTPUT);
     pinMode(LEFT_REAR_BACKWARD, OUTPUT);
@@ -105,44 +115,26 @@ void right()
 
 void loop() 
 {   
-//forward();
-//delay(ONE_SECOND*2);
-//stop();
-//delay(ONE_SECOND*0.5);
-//backward();
-//delay(ONE_SECOND);
-//stop();
-right();
-delay(ONE_SECOND*0.5);
+  if(bluetooth.available() > 0)  //Checking if there is some data available or not
+  { 
+    command = bluetooth.read();   //Storing the data in the 'command' variable
+//    Serial.println(command);
 
-  
-//  while (Serial.available())
-//  { 
-//      char in_byte = Serial.read();
-//    
-//      if(in_byte == 'F' )
-//      {
-//        car_forward_step();
-//      }
-//       
-//      if (in_byte == 'B')
-//      {
-//        car_backward_step();
-//      }
-//         
-//      if(in_byte == 'S')
-//      {
-//            car_full_stop();
-//      }
-//    
-//      if(in_byte == 'L')
-//      {
-//        car_turn_left_90();
-//      }
-//  
-//      if(in_byte == 'R')
-//      {
-//        car_turn_right_90();
-//      }
-//  }
-}   
+    switch(command)
+    {
+      case 'F': 
+      {
+        forward();
+        break;
+      }
+      default:
+       backward();  
+        break;
+    }
+  }
+}  
+
+
+
+
+ 
