@@ -81,15 +81,38 @@ void stop()
   digitalWrite(RIGHT_REAR_BACKWARD, LOW); 
 }
 
+
+
+void left()
+{
+  digitalWrite(RIGHT_FRONT_FORWARD,HIGH);
+  digitalWrite(RIGHT_REAR_FORWARD, HIGH);
+  
+  digitalWrite(LEFT_FRONT_BACKWARD, HIGH);
+  digitalWrite(LEFT_REAR_BACKWARD,  HIGH);
+}
+
+
+void right()
+{
+  digitalWrite(LEFT_FRONT_FORWARD,HIGH);
+  digitalWrite(LEFT_REAR_FORWARD, HIGH);
+  
+  digitalWrite(RIGHT_FRONT_BACKWARD, HIGH);
+  digitalWrite(RIGHT_REAR_BACKWARD,  HIGH);
+}
+
+
 void loop() 
 {   
-forward();
-delay(ONE_SECOND*2);
-stop();
-delay(ONE_SECOND*0.5);
-backward();
-delay(ONE_SECOND);
-stop();
+//forward();
+//delay(ONE_SECOND*2);
+//stop();
+//delay(ONE_SECOND*0.5);
+//backward();
+//delay(ONE_SECOND);
+//stop();
+right();
 delay(ONE_SECOND*0.5);
 
   
